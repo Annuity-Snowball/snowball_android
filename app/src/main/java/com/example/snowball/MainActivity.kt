@@ -1,4 +1,4 @@
-package com.example.snowball.view
+package com.example.snowball
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,16 +13,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.snowball.ui.theme.SnowballTheme
+import com.example.snowball.view.bottomNavBar
+import com.example.snowball.view.topAppBar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SnowballTheme {
-                Surface{
-                    scaffoldFunction()
-                }
-            }
+            snowballApp()
+        }
+    }
+}
+
+@Composable
+fun snowballApp(){
+    SnowballTheme {
+        Surface{
+            scaffoldFunction()
         }
     }
 }
@@ -30,6 +37,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun scaffoldFunction(){
+
     Scaffold(
         topBar = { topAppBar() },
         content = { innerPadding -> scaffoldContents(innerPadding = innerPadding) },

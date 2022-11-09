@@ -1,21 +1,17 @@
 package com.example.snowball.view
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.example.snowball.BottomNavDestination
+import com.example.snowball.Home
 import com.example.snowball.view.modifierExtension.drawColoredShadow
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,15 +44,6 @@ fun topAppBar(){
 
 @Composable
 fun bottomNavBar() {
-//    val navController = rememberNavController()
-//    NavHost(navController = navController, startDestination = "profile") {
-//        composable("HOME") { homeView() }
-//        composable("SEARCH") { searchView() }
-//        composable("ADD") { addView() }
-//        composable("MY") { myView() }
-//        /*...*/
-//    }
-
     var selectedItem by remember { mutableStateOf(0) }
     val items = listOf("HOME", "SEARCH", "ADD", "MY")
     val navIcons = listOf(
@@ -65,6 +52,9 @@ fun bottomNavBar() {
         Icons.Rounded.PlaylistAdd,
         Icons.Rounded.AccountCircle
     )
+
+    var currentScreen: BottomNavDestination by remember { mutableStateOf(Home) }
+
 
     NavigationBar(
         modifier = Modifier
