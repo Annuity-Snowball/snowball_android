@@ -12,7 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.snowball.ui.theme.SnowballTheme
+import com.example.snowball.view.NavigationSetup
 import com.example.snowball.view.bottomNavBar
 import com.example.snowball.view.topAppBar
 
@@ -38,32 +42,25 @@ fun snowballApp(){
 @Composable
 fun scaffoldFunction(){
 
+    val navController = rememberNavController()
+
     Scaffold(
         topBar = { topAppBar() },
-        content = { innerPadding -> scaffoldContents(innerPadding = innerPadding) },
-        bottomBar = { bottomNavBar() },
+        content = { innerPadding ->
+            scaffoldContents(innerPadding = innerPadding, navController)
+          },
+        bottomBar = { bottomNavBar(navController) },
         containerColor = Color.White,
         contentColor = Color.White
     )
 }
 
 @Composable
-fun scaffoldContents(innerPadding: PaddingValues) {
-    LazyColumn(
-        contentPadding = innerPadding,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        val list = (0..20).map { it.toString() }
-        items(count = list.size) {
-            Text(
-                text = list[it],
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            )
-        }
-    }
+fun scaffoldContents(
+    innerPadding: PaddingValues,
+    navController: NavHostController
+) {
+    NavigationSetup(navController = navController)
 }
 
 @Preview(showBackground = true)

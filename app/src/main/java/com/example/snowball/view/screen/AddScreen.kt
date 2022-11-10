@@ -16,13 +16,13 @@ fun addScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary)
+            .background(Color.White)
     ) {
         Text(
             text = "This is Add",
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier.align(Alignment.Center)
         )
     }

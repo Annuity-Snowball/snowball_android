@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.snowball.BottomNavDestination
 import com.example.snowball.Home
 import com.example.snowball.view.modifierExtension.drawColoredShadow
@@ -43,7 +44,9 @@ fun topAppBar(){
 }
 
 @Composable
-fun bottomNavBar() {
+fun bottomNavBar(
+    navController: NavController
+) {
     var selectedItem by remember { mutableStateOf(0) }
     val items = listOf("HOME", "SEARCH", "ADD", "MY")
     val navIcons = listOf(
@@ -74,12 +77,26 @@ fun bottomNavBar() {
                     }
                 },
                 selected = selectedItem == index,
-                onClick = { selectedItem = index },
+                onClick = {
+                    selectedItem = index
+                    navController.navigate(item) {
+                        navController.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
+                        }
+                        // Avoid multiple copies of the same destination when re-selecting the same item
+                        launchSingleTop = true
+                        // Restore state when re-selecting a previously selected item
+                        restoreState = true
+                      }
+                },
                 alwaysShowLabel = true,
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Color(255, 255, 255, 255),
                     indicatorColor = Color(0x66, 0xC6, 0xA3, 100)
                 ),
+//                interactionSource =
             )
         }
     }
