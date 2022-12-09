@@ -3,6 +3,7 @@ package com.example.snowball
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.rounded.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.snowball.ui.theme.SnowballTheme
 import com.example.snowball.view.NavigationSetup
@@ -45,7 +47,7 @@ fun scaffoldFunction(){
     val navController = rememberNavController()
 
     Scaffold(
-        topBar = { topAppBar() },
+//        topBar = { topAppBar() },
         content = { innerPadding ->
             scaffoldContents(innerPadding = innerPadding, navController)
           },

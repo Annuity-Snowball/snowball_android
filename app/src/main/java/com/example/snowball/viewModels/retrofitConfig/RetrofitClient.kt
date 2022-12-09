@@ -1,4 +1,4 @@
-package com.example.snowball.viewModel.retrofitConfig
+package com.example.snowball.viewModels.retrofitConfig
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

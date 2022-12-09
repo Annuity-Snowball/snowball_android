@@ -24,8 +24,8 @@ fun topAppBar(){
         navigationIcon = {
             IconButton(onClick = { /* doSomething() */ }) {
                 Icon(
-                    imageVector = Icons.Rounded.ArrowBack,
-                    contentDescription = "Go back"
+                    imageVector = Icons.Rounded.Menu,
+                    contentDescription = "menu"
                 )
             }
         },
@@ -56,9 +56,6 @@ fun bottomNavBar(
         Icons.Rounded.AccountCircle
     )
 
-    var currentScreen: BottomNavDestination by remember { mutableStateOf(Home) }
-
-
     NavigationBar(
         modifier = Modifier
             .drawColoredShadow(offsetX = 2.dp)
@@ -85,9 +82,7 @@ fun bottomNavBar(
                                 saveState = true
                             }
                         }
-                        // Avoid multiple copies of the same destination when re-selecting the same item
                         launchSingleTop = true
-                        // Restore state when re-selecting a previously selected item
                         restoreState = true
                       }
                 },
@@ -96,7 +91,6 @@ fun bottomNavBar(
                     selectedIconColor = Color(255, 255, 255, 255),
                     indicatorColor = Color(0x66, 0xC6, 0xA3, 100)
                 ),
-//                interactionSource =
             )
         }
     }
@@ -105,7 +99,7 @@ fun bottomNavBar(
 @Composable
 fun topAppBarTitle(){
     Text(
-        "포트폴리오 입력",
+        "연금 스노우볼",
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
     )

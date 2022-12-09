@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.snowball"
-        minSdk 33
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -70,8 +70,15 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     implementation 'com.google.code.gson:gson:2.9.0'
 
-//Okhttp3
+    //Okhttp3
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.10.0'
+
+    implementation("com.himanshoe:charty:1.0.1")
+//    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
 }
