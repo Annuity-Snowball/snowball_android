@@ -15,13 +15,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.snowball.ui.component.add.result.BufferingMotion
 import com.example.snowball.ui.component.add.result.ResultLineChart
 import com.example.snowball.ui.component.add.result.ResultTopBar
 import com.example.snowball.ui.screen.add.portfolio_input.PortfolioInputScreenViewModel
+import com.github.mikephil.charting.data.Entry
+import com.google.gson.JsonObject
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,7 +55,6 @@ fun ResultScreen(
 fun ResultScreenContent(
     resultScreenViewModel: ResultScreenViewModel
 ) {
-
     val scrollState = rememberScrollState()
 
     Column(
@@ -59,35 +63,10 @@ fun ResultScreenContent(
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (!PortfolioInputScreenViewModel.BackTestResult.result.value.onlyMoney.isJsonNull) {
+        if (PortfolioInputScreenViewModel.BackTestResult.result.value.onlyMoney != JsonObject()) {
             ResultLineChart()
+        } else {
+            BufferingMotion()
         }
-
-//        Text(
-//            text = PortfolioInputScreenViewModel.BackTestResult.result.value.onlyMoney.keySet().toString(),
-//            color = Color.Blue
-//        )
-//        Text(
-//            text = PortfolioInputScreenViewModel.BackTestResult.result.value.value_without_tax.toString(),
-//            color = Color.Green
-//        )
-//        Text(
-//            text = PortfolioInputScreenViewModel.BackTestResult.result.value.result_with_tax.toString(),
-//            color = Color.Yellow
-//        )
-//        Text(
-//            text = PortfolioInputScreenViewModel.BackTestResult.result.value.result_without_tax.toString(),
-//            color = Color.Red
-//        )
-//        Text(
-//            text = PortfolioInputScreenViewModel.BackTestResult.result.value.receive_with_tax.toString(),
-//            color = Color.Cyan
-//        )
-//        Text(
-//            text = PortfolioInputScreenViewModel.BackTestResult.result.value.receive_without_tax.toString(),
-//            color = Color.Black
-//        )
     }
-
-
 }
