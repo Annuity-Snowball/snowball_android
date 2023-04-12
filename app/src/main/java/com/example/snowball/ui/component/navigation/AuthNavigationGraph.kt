@@ -4,17 +4,18 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.example.snowball.ui.screen.auth.main.AuthScreen
 
 fun NavGraphBuilder.loginNavGraph(
-    loginAction: LoginAction
+    authAction: AuthAction
 ){
-    navigation(startDestination = LoginDestination.LOGIN_SCREEN, route = LoginDestination.LOGIN_ROUTER){
-        composable(LoginDestination.LOGIN_SCREEN){
-            // TODO: 로그인 만들고 추가하기
+    navigation(startDestination = AuthDestination.AUTH_SCREEN, route = AuthDestination.AUTH_ROUTER){
+        composable(AuthDestination.AUTH_SCREEN){
+            AuthScreen()
         }
     }
 }
 
-class LoginAction(navController: NavController){
+class AuthAction(navController: NavController){
 
 }

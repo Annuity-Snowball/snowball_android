@@ -4,9 +4,11 @@ object MainDestination{
 
 }
 
-object LoginDestination{
-    const val LOGIN_ROUTER = "LOGIN"
-    const val LOGIN_SCREEN = "LOGIN_SCREEN"
+object AuthDestination{
+    const val AUTH_ROUTER = "AUTH"
+    const val AUTH_SCREEN = "AUTH_SCREEN"
+    const val SIGNIN_SCREEN = "SIGNIN_SCREEN"
+    const val SIGNUP_SCREEN = "SIGNUP_SCREEN"
 }
 
 object HomeDestination{

@@ -10,14 +10,14 @@ import com.example.snowball.ui.component.navigation.*
 @Composable
 fun NavigationSetup(navController: NavHostController) {
 
-    val loginAction = remember(navController){LoginAction(navController)}
+    val authAction = remember(navController){AuthAction(navController)}
     val homeAction = remember(navController){HomeAction(navController)}
     val searchAction = remember(navController){SearchAction(navController)}
     val addAction = remember(navController){AddAction(navController)}
     val myPageAction = remember(navController){MyPageAction(navController)}
 
-    NavHost(navController, startDestination = AddDestination.ADD_ROUTER) {
-        loginNavGraph(loginAction = loginAction)
+    NavHost(navController, startDestination = AuthDestination.AUTH_ROUTER) {
+        loginNavGraph(authAction = authAction)
         homeNavGraph(homeAction = homeAction)
         searchNavGraph(searchAction = searchAction)
         addNavGraph(addAction = addAction)
