@@ -66,6 +66,7 @@ fun ResultScreenContent(
             ResultTable()
             DailyBenefitChart()
             ReceiveWayTable()
+            ButtonRow()
         } else {
             BufferingMotion()
         }
