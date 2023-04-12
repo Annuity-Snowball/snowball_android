@@ -2,18 +2,17 @@ package com.example.snowball.ui.component.add.result
 
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.snowball.ui.screen.add.portfolio_input.PortfolioInputScreenViewModel
-import com.example.snowball.ui.theme.*
+import com.example.snowball.ui.theme.MainBlack
+import com.example.snowball.ui.theme.MainGreen
+import com.example.snowball.ui.theme.MainOrange
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -21,19 +20,21 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.google.gson.JsonObject
 import java.util.*
 
-
 @Composable
-fun ResultLineChart() {
+fun DailyBenefitChart(
+
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.Start
     ) {
         Text(
-            text = "자산 추이",
+            modifier = Modifier
+                .padding(vertical = 16.dp),
+            text = "일별 수익률",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp
         )
@@ -93,34 +94,23 @@ fun ResultLineChart() {
             yRightAxis.setDrawAxisLine(false)
             yRightAxis.axisLineWidth = 2f
 
-            yRightAxis.valueFormatter = object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String {
-                    return when {
-                        value >= 1_000_000 -> "%dm".format((value / 1_000_000).toInt())
-                        value >= 1_000 -> "%dk".format((value / 1_000).toInt())
-                        else -> "%d".format(value.toInt())
-                    }
-                }
-            }
+//            yRightAxis.valueFormatter = object : ValueFormatter() {
+//                override fun getFormattedValue(value: Float): String {
+//                    return when {
+//                        value >= 1_000_000 -> "%dm".format((value / 1_000_000).toInt())
+//                        value >= 1_000 -> "%dk".format((value / 1_000).toInt())
+//                        else -> "%d".format(value.toInt())
+//                    }
+//                }
+//            }
 
-            val onlyMoneyEntries = mutableListOf<Entry>()
-            val onlyMoneyElements = parseJsonToEntries(PortfolioInputScreenViewModel.BackTestResult.result.value.onlyMoney)
-            onlyMoneyEntries.addAll(onlyMoneyElements)
+            val dailyBenefitEntries = mutableListOf<Entry>()
+            val dailyBenefitElements = parseJsonToEntries(
+                PortfolioInputScreenViewModel.BackTestResult.result.value.result_with_tax.getAsJsonObject("일별 수익률")
+            )
+            dailyBenefitEntries.addAll(dailyBenefitElements)
 
-            val onlyMoneyDataSet = LineDataSet(onlyMoneyEntries, "현금").apply {
-                lineWidth = 2f
-                setDrawCircles(false)
-                setDrawValues(false)
-                setDrawHorizontalHighlightIndicator(false)
-                setDrawHighlightIndicators(false)
-                color = MainBlack50.hashCode()
-            }
-
-            val valueWithOutTaxEntries = mutableListOf<Entry>()
-            val valueWithOutTaxElements = parseJsonToEntries(PortfolioInputScreenViewModel.BackTestResult.result.value.value_without_tax)
-            valueWithOutTaxEntries.addAll(valueWithOutTaxElements)
-
-            val valueWithOutTaxDataSet = LineDataSet(valueWithOutTaxEntries, "세제혜택x").apply {
+            val dailyBenefitDataSet = LineDataSet(dailyBenefitEntries, "수익률").apply {
                 lineWidth = 2f
                 setDrawCircles(false)
                 setDrawValues(false)
@@ -129,45 +119,16 @@ fun ResultLineChart() {
                 color = MainGreen.hashCode()
             }
 
-            val valueWithTaxEntries = mutableListOf<Entry>()
-            val valueWithTaxElements = parseJsonToEntries(PortfolioInputScreenViewModel.BackTestResult.result.value.value_with_tax)
-            valueWithTaxEntries.addAll(valueWithTaxElements)
-
-            val valueWithTaxDataSet = LineDataSet(valueWithTaxEntries, "세제혜택o").apply {
-                lineWidth = 2f
-                setDrawCircles(false)
-                setDrawValues(false)
-                setDrawHorizontalHighlightIndicator(false)
-                setDrawHighlightIndicators(false)
-                color = MainOrange.hashCode()
-            }
-
-            val lineData = LineData(onlyMoneyDataSet, valueWithOutTaxDataSet, valueWithTaxDataSet)
+            val lineData = LineData(dailyBenefitDataSet)
 
             chart.data = lineData
             chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
             chart.invalidate()
 
             chart
-    },
+        },
         modifier = androidx.compose.ui.Modifier
             .width(360.dp)
             .height(360.dp)
     )
-}
-
-fun parseJsonToEntries(
-    jsonObject: JsonObject
-): List<Entry> {
-
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val entries = mutableListOf<Entry>()
-
-    for (key in jsonObject.keySet()) {
-        val dateMillis = dateFormat.parse(key)?.time?.toFloat() ?: 0f
-        val value = jsonObject.get(key)
-        entries.add(Entry(dateMillis, value.asFloat))
-    }
-
-    return entries.sortedBy { it.x }
 }

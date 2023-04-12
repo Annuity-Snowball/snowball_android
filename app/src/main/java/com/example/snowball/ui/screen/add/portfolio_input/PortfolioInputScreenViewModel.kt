@@ -13,6 +13,9 @@ class PortfolioInputScreenViewModel: ViewModel() {
 
     companion object BackTestResult {
         val result = mutableStateOf<PortfolioResponseModel>(PortfolioResponseModel())
+        val resetResult: () -> Unit = {
+            result.value = PortfolioResponseModel()
+        }
     }
 
     private val _startDate = mutableStateOf("2017-10-01")

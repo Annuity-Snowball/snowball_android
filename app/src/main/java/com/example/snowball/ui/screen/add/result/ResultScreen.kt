@@ -21,9 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.snowball.ui.component.add.result.BufferingMotion
-import com.example.snowball.ui.component.add.result.ResultLineChart
-import com.example.snowball.ui.component.add.result.ResultTopBar
+import com.example.snowball.ui.component.add.result.*
 import com.example.snowball.ui.screen.add.portfolio_input.PortfolioInputScreenViewModel
 import com.github.mikephil.charting.data.Entry
 import com.google.gson.JsonObject
@@ -42,8 +40,8 @@ fun ResultScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 80.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)
                     .background(Color.White)
+                    .padding(top = 80.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)
             ) {
                 ResultScreenContent(resultScreenViewModel = resultScreenViewModel)
             }
@@ -65,6 +63,9 @@ fun ResultScreenContent(
     ) {
         if (PortfolioInputScreenViewModel.BackTestResult.result.value.onlyMoney != JsonObject()) {
             ResultLineChart()
+            ResultTable()
+            DailyBenefitChart()
+            ReceiveWayTable()
         } else {
             BufferingMotion()
         }
