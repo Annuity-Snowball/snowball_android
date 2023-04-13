@@ -52,9 +52,9 @@ fun AddScreenContent(
     navigateToSelectScreen: () -> Unit,
     navigateToPortfolioInputScreen: () -> Unit
 ){
-    LaunchedEffect(Unit){
-        addScreenViewModel.setDefaultStrategyList()
-    }
+//    LaunchedEffect(Unit){
+//        addScreenViewModel.setDefaultStrategyList()
+//    }
     Column(
         modifier = Modifier
             .fillMaxSize(),

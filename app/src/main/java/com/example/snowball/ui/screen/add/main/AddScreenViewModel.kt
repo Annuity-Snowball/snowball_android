@@ -11,7 +11,7 @@ class AddScreenViewModel: ViewModel() {
 
     companion object Strategies {
         private val _strategyList = mutableStateListOf<StrategyModel>()
-        private val _portfolioTitle = mutableStateOf("test_android")
+        private val _portfolioTitle = mutableStateOf("")
 
         val getStrategyList: () -> SnapshotStateList<StrategyModel> = {
             _strategyList

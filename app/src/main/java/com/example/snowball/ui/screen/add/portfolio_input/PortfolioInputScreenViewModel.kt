@@ -18,31 +18,31 @@ class PortfolioInputScreenViewModel: ViewModel() {
         }
     }
 
-    private val _startDate = mutableStateOf("2017-10-01")
+    private val _startDate = mutableStateOf("")
     val startDate = _startDate
     val setStartDate: (String) -> Unit = {
         _startDate.value = it
     }
 
-    private val _endDate = mutableStateOf("2018-05-01")
+    private val _endDate = mutableStateOf("")
     val endDate = _endDate
     val setEndDate: (String) -> Unit = {
         _endDate.value = it
     }
 
-    private val _rebalancingDuration = mutableStateOf("3")
+    private val _rebalancingDuration = mutableStateOf("")
     val rebalancingDuration = _rebalancingDuration
     val setRebalancingDuration: (String) -> Unit = {
         _rebalancingDuration.value = it
     }
 
-    private val _inputMoney = mutableStateOf("700000")
+    private val _inputMoney = mutableStateOf("")
     val inputMoney = _inputMoney
     val setInputMoney: (String) -> Unit = {
         _inputMoney.value = it
     }
 
-    private val _startMoney = mutableStateOf("3000000")
+    private val _startMoney = mutableStateOf("")
     val startMoney = _startMoney
     val setStartMoney: (String) -> Unit = {
         _startMoney.value = it

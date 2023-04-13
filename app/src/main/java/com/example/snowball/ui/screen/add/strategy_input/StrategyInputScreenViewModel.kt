@@ -6,15 +6,15 @@ import androidx.lifecycle.ViewModel
 
 class StrategyInputScreenViewModel: ViewModel() {
 
-    private val _strategyNumber = mutableStateOf(0)
+    private val _strategyNumber = mutableStateOf("")
     val strategyNumber = _strategyNumber
-    val setStrategyNumber: (Int) -> Unit = {
+    val setStrategyNumber: (String) -> Unit = {
         _strategyNumber.value = it
     }
 
-    private val _strategyRatio = mutableStateOf(0)
+    private val _strategyRatio = mutableStateOf("")
     val strategyRatio = _strategyRatio
-    val setStrategyRatio: (Int) -> Unit = {
+    val setStrategyRatio: (String) -> Unit = {
         _strategyRatio.value = it
     }
 

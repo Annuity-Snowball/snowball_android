@@ -47,10 +47,6 @@ fun InputBlockDetail(
             strategyInputScreenViewModel.setSliderPosition(it)
             strategyInputScreenViewModel.setStrategyHighValue(it.start.toInt())
             strategyInputScreenViewModel.setStrategyLowValue(it.endInclusive.toInt())
-//            Log.i("AddScreen.StrategyInputScreen", "onValueChangeFinished start position : ${strategyInputScreenViewModel.sliderPosition.value.start.toInt()}")
-//            Log.i("AddScreen.StrategyInputScreen", "onValueChangeFinished end position : ${strategyInputScreenViewModel.sliderPosition.value.endInclusive}")
-//            Log.i("AddScreen.StrategyInputScreen", "onValueChangeFinished start value : ${strategyInputScreenViewModel.strategyHighValue.value}")
-//            Log.i("AddScreen.StrategyInputScreen", "onValueChangeFinished end value : ${strategyInputScreenViewModel.strategyLowValue.value}")
         },
         valueRange = 0f..100f,
         onValueChangeFinished = {  },
@@ -66,19 +62,19 @@ fun InputBlockDetail(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         // TODO: 이상 이하 인데 high low 라고 되어 있음 헤깔릴 소지 됨
-        StrategyInputTextField(
-            value = strategyInputScreenViewModel.strategyHighValue.value,
-            setValue = strategyInputScreenViewModel.setStrategyHighValue,
-            label = "이상",
-            width = 170
-        )
-
-        StrategyInputTextField(
-            value = strategyInputScreenViewModel.strategyLowValue.value,
-            setValue = strategyInputScreenViewModel.setStrategyLowValue,
-            label = "이하",
-            width = 170
-        )
+//        StrategyInputTextField(
+//            value = strategyInputScreenViewModel.strategyHighValue.value,
+//            setValue = strategyInputScreenViewModel.setStrategyHighValue,
+//            label = "이상",
+//            width = 170
+//        )
+//
+//        StrategyInputTextField(
+//            value = strategyInputScreenViewModel.strategyLowValue.value,
+//            setValue = strategyInputScreenViewModel.setStrategyLowValue,
+//            label = "이하",
+//            width = 170
+//        )
     }
     StrategyInputTextField(
         value = strategyInputScreenViewModel.strategyNumber.value,
@@ -96,14 +92,14 @@ fun InputBlockDetail(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StrategyInputTextField(
-    value: Int,
-    setValue: (Int) -> Unit,
+    value: String,
+    setValue: (String) -> Unit,
     label: String
 ) {
     OutlinedTextField(
-        value = value.toString(),
+        value = value,
         onValueChange = {
-            setValue(it.toInt())
+            setValue(it)
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -122,15 +118,15 @@ fun StrategyInputTextField(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StrategyInputTextField(
-    value: Int,
-    setValue: (Int) -> Unit,
+    value: String,
+    setValue: (String) -> Unit,
     label: String,
     width: Int
 ) {
     OutlinedTextField(
-        value = value.toString(),
+        value = value,
         onValueChange = {
-            setValue(it.toInt())
+            setValue(it)
         },
         modifier = Modifier
             .width(width.dp)

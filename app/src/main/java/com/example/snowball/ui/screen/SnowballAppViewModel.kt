@@ -6,10 +6,18 @@ import androidx.lifecycle.ViewModel
 class SnowballAppViewModel: ViewModel() {
 
     companion object BottomBarState {
-        private val PrivateBottomBarToggle = mutableStateOf(true)
+        val PrivateBottomBarToggle = mutableStateOf(true)
 
         val toggleBottomBar: () -> Unit = {
             PrivateBottomBarToggle.value = !(PrivateBottomBarToggle.value)
+        }
+
+        val toggleBottomBarFalse: () -> Unit = {
+            PrivateBottomBarToggle.value = false
+        }
+
+        val toggleBottomBarTrue: () -> Unit = {
+            PrivateBottomBarToggle.value = true
         }
     }
 

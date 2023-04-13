@@ -31,8 +31,8 @@ fun InputButton(
             AddScreenViewModel.Strategies.addStrategyList(
                 StrategyModel(
                     productName = selectedItem,
-                    productNumber = strategyInputScreenViewModel.strategyNumber.value,
-                    productRate = strategyInputScreenViewModel.strategyRatio.value
+                    productNumber = strategyInputScreenViewModel.strategyNumber.value.toInt(),
+                    productRate = strategyInputScreenViewModel.strategyRatio.value.toInt()
                 )
             )
             SelectScreenViewModel.Depth.resetDepth()
@@ -63,6 +63,6 @@ fun enableInputButton(
     strategyInputScreenViewModel: StrategyInputScreenViewModel
 ): Boolean {
     strategyInputScreenViewModel.let {
-        return it.strategyNumber.value > 0 && it.strategyRatio.value > 0
+        return it.strategyNumber.value != "" && it.strategyRatio.value != ""
     }
 }
