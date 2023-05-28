@@ -1,4 +1,4 @@
-package com.example.snowball.api
+package com.example.snowball.api.portfolio
 
 import com.example.snowball.model.add.PortfolioRequestModel
 import com.example.snowball.model.add.PortfolioResponseModel
@@ -12,4 +12,6 @@ interface AddApi {
     suspend fun doBackTest(
         @Body portfolioModel: PortfolioRequestModel
     ): Response<PortfolioResponseModel>
+
+    // TODO: 유저 이름으로 불러오는 것 추가하기
 }

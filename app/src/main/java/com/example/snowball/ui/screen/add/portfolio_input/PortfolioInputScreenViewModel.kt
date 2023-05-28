@@ -3,11 +3,10 @@ package com.example.snowball.ui.screen.add.portfolio_input
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.snowball.api.RetrofitClient
+import com.example.snowball.api.portfolio.PortfolioServerClient
 import com.example.snowball.model.add.PortfolioRequestModel
 import com.example.snowball.model.add.PortfolioResponseModel
 import com.example.snowball.ui.screen.add.main.AddScreenViewModel
-import com.google.gson.JsonObject
 
 class PortfolioInputScreenViewModel: ViewModel() {
 
@@ -62,7 +61,7 @@ class PortfolioInputScreenViewModel: ViewModel() {
         )
 
         try {
-            val response = RetrofitClient.addApiService.doBackTest(requestBody)
+            val response = PortfolioServerClient.portfolioApiService.doBackTest(requestBody)
             when(response.code()) {
                 200 -> {
                     Log.i("AddScreen.portfolioInputScreen", "result : ${response.body()}")
