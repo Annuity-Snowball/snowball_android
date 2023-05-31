@@ -32,8 +32,8 @@ fun SelectScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 70.dp)
                     .background(Color.White)
+                    .padding(top = 70.dp)
             ) {
                 SelectScreenContent(
                     selectScreenViewModel = selectScreenViewModel,
