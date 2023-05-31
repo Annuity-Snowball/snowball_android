@@ -13,5 +13,13 @@ object MembershipServerClient {
             .addConverterFactory(GsonConverterFactory.create())
     }
 
+    val userApiService: UserApi by lazy {
+        retrofit.build()
+            .create(UserApi::class.java)
+    }
+    val authApiService: AuthApi by lazy {
+        retrofit.build()
+            .create((AuthApi::class.java))
+    }
 
 }

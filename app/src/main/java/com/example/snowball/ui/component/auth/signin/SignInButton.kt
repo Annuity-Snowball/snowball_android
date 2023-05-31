@@ -7,6 +7,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,10 +21,16 @@ fun SignInButton(
     signInViewModel: SignInViewModel,
     navigateToHome: () -> Unit
 ){
+    LaunchedEffect(signInViewModel.buttonClicked.value) {
+        if (signInViewModel.buttonClicked.value) {
+            signInViewModel.signIn(navigateToHome)
+            signInViewModel.toggleButton()
+        }
+    }
+
     Button(
         onClick = {
-            navigateToHome()
-            SnowballAppViewModel.BottomBarState.toggleBottomBarTrue()
+            signInViewModel.toggleButton()
         },
         colors = ButtonDefaults.buttonColors(
             containerColor = MainOrange
