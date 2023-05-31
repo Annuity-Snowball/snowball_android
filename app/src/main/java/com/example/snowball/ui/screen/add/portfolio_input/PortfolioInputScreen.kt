@@ -1,22 +1,17 @@
 package com.example.snowball.ui.screen.add.portfolio_input
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.snowball.ui.component.add.portfolio_input.GetResultButton
-import com.example.snowball.ui.component.add.portfolio_input.PortfolioInputTextField
-import com.example.snowball.ui.component.add.portfolio_input.PortfolioInputTopBar
+import com.example.snowball.ui.component.add.portfolio_input.*
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PortfolioInputScreen(
     portfolioInputScreenViewModel: PortfolioInputScreenViewModel = PortfolioInputScreenViewModel(),
@@ -29,8 +24,8 @@ fun PortfolioInputScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 80.dp, bottom = 16.dp)
                     .background(Color.White)
+                    .padding(top = 80.dp, bottom = 16.dp)
             ) {
                 PortfolioInputContent(
                     portfolioInputScreenViewModel = portfolioInputScreenViewModel,
@@ -40,6 +35,7 @@ fun PortfolioInputScreen(
         }
     )
 }
+
 
 @Composable
 fun PortfolioInputContent(
@@ -52,45 +48,47 @@ fun PortfolioInputContent(
             .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column() {
-            PortfolioInputTextField(
-                value = portfolioInputScreenViewModel.startDate.value,
-                setValue = portfolioInputScreenViewModel.setStartDate,
-                label = "시작 일자",
-                keyboardType = KeyboardType.Text
-            )
 
-            PortfolioInputTextField(
-                value = portfolioInputScreenViewModel.endDate.value,
-                setValue = portfolioInputScreenViewModel.setEndDate,
-                label = "마지막 일자",
-                keyboardType = KeyboardType.Text
-            )
+        if(portfolioInputScreenViewModel.insertOption.value == "DATE") {
+            Column {
+                GetDateInfo(portfolioInputScreenViewModel)
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                NextButton(portfolioInputScreenViewModel)
+            }
+        } else {
+            Column {
+                GetPriceInfo(portfolioInputScreenViewModel)
+            }
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                BeforeButton(portfolioInputScreenViewModel)
+                Spacer(modifier = Modifier.width(20.dp))
+                ResultButton(
+                    portfolioInputScreenViewModel = portfolioInputScreenViewModel,
+                    navigateToResultScreen = navigateToResultScreen
+                )
+            }
 
-            PortfolioInputTextField(
-                value = portfolioInputScreenViewModel.rebalancingDuration.value,
-                setValue = portfolioInputScreenViewModel.setRebalancingDuration,
-                label = "리밸런싱 주기",
-                keyboardType = KeyboardType.Decimal
-            )
-
-            PortfolioInputTextField(
-                value = portfolioInputScreenViewModel.inputMoney.value,
-                setValue = portfolioInputScreenViewModel.setInputMoney,
-                label = "입금 금액",
-                keyboardType = KeyboardType.Decimal
-            )
-
-            PortfolioInputTextField(
-                value = portfolioInputScreenViewModel.startMoney.value,
-                setValue = portfolioInputScreenViewModel.setStartMoney,
-                label = "초기 금액",
-                keyboardType = KeyboardType.Decimal
-            )
         }
-        GetResultButton(
+    }
+}
+
+@Preview("before, result button preview")
+@Composable
+fun buttonPreview(
+    portfolioInputScreenViewModel: PortfolioInputScreenViewModel = PortfolioInputScreenViewModel()
+){
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        BeforeButton(portfolioInputScreenViewModel)
+        ResultButton(
             portfolioInputScreenViewModel = portfolioInputScreenViewModel,
-            navigateToResultScreen = navigateToResultScreen
+            navigateToResultScreen = {}
         )
     }
 }

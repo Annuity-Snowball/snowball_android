@@ -1,6 +1,7 @@
 package com.example.snowball.ui.screen.add.portfolio_input
 
 import android.util.Log
+import androidx.compose.material3.DatePickerState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.snowball.api.portfolio.PortfolioServerClient
@@ -15,6 +16,15 @@ class PortfolioInputScreenViewModel: ViewModel() {
         val resetResult: () -> Unit = {
             result.value = PortfolioResponseModel()
         }
+    }
+
+    private val _insertOption = mutableStateOf("DATE")
+    val insertOption = _insertOption
+    val setInsertOptionToPrice: () -> Unit = {
+        _insertOption.value = "PRICE"
+    }
+    val setInsertOptionToDate: () -> Unit = {
+        _insertOption.value = "DATE"
     }
 
     private val _startDate = mutableStateOf("")

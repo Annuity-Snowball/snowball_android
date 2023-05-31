@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,9 +22,11 @@ fun SignInButton(
     signInViewModel: SignInViewModel,
     navigateToHome: () -> Unit
 ){
+    val context = LocalContext.current
+
     LaunchedEffect(signInViewModel.buttonClicked.value) {
         if (signInViewModel.buttonClicked.value) {
-            signInViewModel.signIn(navigateToHome)
+            signInViewModel.signIn(context, navigateToHome)
             signInViewModel.toggleButton()
         }
     }

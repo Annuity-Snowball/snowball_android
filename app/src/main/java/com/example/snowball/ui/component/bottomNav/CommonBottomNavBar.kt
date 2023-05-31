@@ -52,7 +52,6 @@ fun CommonBottomNavBar(
                 },
                 label = {
                     Column {
-                        Spacer(modifier = Modifier.height(57.dp))
                         Text(item)
                     }
                 },
