@@ -39,6 +39,9 @@ fun SegmentedControl(
         modifier = Modifier
     ) {
         items.forEachIndexed { index, item ->
+
+            val fontSize = if(item.length > 4) 14 else 16
+
             OutlinedButton(
                 modifier = when (index) {
                     0 -> {
@@ -68,6 +71,7 @@ fun SegmentedControl(
                         }
                     }
                 },
+                contentPadding = PaddingValues(0.dp),
                 onClick = {
                     selectedIndex.value = index
                     onItemSelection(selectedIndex.value)
@@ -125,7 +129,7 @@ fun SegmentedControl(
                 Text(
                     text = item,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
+                    fontSize = fontSize.sp,
                     color = if (selectedIndex.value == index) {
                         Color.White
                     } else {

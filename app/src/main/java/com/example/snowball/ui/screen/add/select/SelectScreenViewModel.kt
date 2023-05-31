@@ -36,13 +36,14 @@ class SelectScreenViewModel: ViewModel() {
         )
         val valuePointer = listOf(
             "PER",
-            "PBR"
+            "PBR",
+            "PSR"
         )
         val fundamentalPointer = listOf(
-            "fundamental 1",
-            "fundamental 2",
-            "fundamental 3",
-            "fundamental 4",
+            "영업이익률",
+            "순이익률",
+            "부채비율",
+            "ROE",
         )
     }
 

@@ -70,6 +70,10 @@ class PortfolioInputScreenViewModel: ViewModel() {
             strategies = AddScreenViewModel.Strategies.getStrategyList()
         )
 
+        requestBody.strategies.forEach {
+            Log.i("AddScreen.portfolioInputScreen", "inputed strategy name : ${it.productName}")
+        }
+
         try {
             val response = PortfolioServerClient.portfolioApiService.doBackTest(requestBody)
             when(response.code()) {
@@ -85,4 +89,6 @@ class PortfolioInputScreenViewModel: ViewModel() {
             Log.e("AddScreen.portfolioInputScreen", "do backtest failed with error : $e")
         }
     }
+
+
 }

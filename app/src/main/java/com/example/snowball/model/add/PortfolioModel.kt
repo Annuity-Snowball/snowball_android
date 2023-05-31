@@ -15,7 +15,24 @@ data class PortfolioRequestModel(
     val inputWay: Int = 0,
     val strategyNumber: Int,
     val strategies: List<StrategyModel>
-)
+) {
+    init {
+        productNameEncoder("영업이익률", "OperatingRatio")
+        productNameEncoder("순이익률", "ProfitRatio")
+        productNameEncoder("부채비율", "DebtRatio")
+    }
+
+    private fun productNameEncoder(
+        encodeTarget: String,
+        changedString: String
+    ) {
+        strategies.forEach {
+            if (it.productName.contains(encodeTarget)) {
+                it.productName = it.productName.replace(encodeTarget, changedString)
+            }
+        }
+    }
+}
 
 data class PortfolioResponseModel(
     val onlyMoney: JsonObject,
