@@ -1,19 +1,23 @@
-package com.example.snowball.ui.component.add
+package com.example.snowball.ui.component.add.main
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Divider
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.snowball.ui.component.add.main.InsertButtonWhenEmpty
 import com.example.snowball.model.add.StrategyModel
+import com.example.snowball.ui.screen.add.main.AddScreenViewModel
 import com.example.snowball.ui.theme.MainBlack
 import com.example.snowball.ui.theme.MainGreen
 import com.example.snowball.ui.theme.MainGrey
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun StrategyList(
@@ -90,6 +94,8 @@ fun StrategyListTableHeader(){
     }
 }
 
+// TODO: 리팩토링 필요
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StrategyListTableBody(
     strategyList: List<StrategyModel>,
@@ -148,15 +154,44 @@ fun StrategyListTableBody(
             )
         }
     } else {
-        strategyList.forEachIndexed {index, item ->
-            BodyItem(strategy = item)
-            if(index != strategyList.size-1){
-                Divider(
-                    modifier = Modifier.fillMaxWidth(),
-                    thickness = 1.dp,
-                    color = MainGrey
+        val dismissStates = remember { mutableMapOf<StrategyModel, DismissState>() }
+
+        strategyList.forEach { item ->
+            if (dismissStates[item] == null) {
+                dismissStates[item] = rememberDismissState(
+                    positionalThreshold = {0.6f},
+                    confirmValueChange = {
+                        if (it == DismissValue.DismissedToStart) {
+                            AddScreenViewModel.Strategies.deleteStrategyItem(item)
+                            Log.i("AddScreen.main", "deleted item : ${strategyList.size}")
+                            dismissStates.remove(item) // remove item's dismissState from map when item is deleted
+                            true
+                        } else {
+                            false
+                        }
+                    }
                 )
             }
+
+            val dismissState = dismissStates[item]!!
+
+            SwipeToDismiss(
+                state = dismissState,
+                dismissContent = {
+                    BodyItem(strategy = item)
+                    if (item != strategyList.last()) {
+                        Divider(
+                            modifier = Modifier.fillMaxWidth(),
+                            thickness = 1.dp,
+                            color = MainGrey
+                        )
+                    }
+                },
+                background = {
+                    val direction = dismissState.dismissDirection ?: return@SwipeToDismiss
+                },
+                directions = setOf(DismissDirection.EndToStart)
+            )
         }
     }
     Divider(

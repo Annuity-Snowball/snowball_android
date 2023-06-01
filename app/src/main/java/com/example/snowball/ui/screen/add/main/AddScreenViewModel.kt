@@ -28,6 +28,10 @@ class AddScreenViewModel: ViewModel() {
         val addStrategyList: (StrategyModel) -> Unit = {
             _strategyList.add(it)
         }
+
+        val deleteStrategyItem: (StrategyModel) -> Unit = {
+            _strategyList.remove(it)
+        }
     }
 
     val portfolioTitle = _portfolioTitle

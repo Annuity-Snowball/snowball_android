@@ -1,5 +1,6 @@
 package com.example.snowball.ui.component.add.main
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.snowball.model.add.StrategyModel
 import com.example.snowball.ui.screen.SnowballAppViewModel
+import com.example.snowball.ui.screen.add.main.AddScreenViewModel
 import com.example.snowball.ui.theme.MainGreen
 import com.example.snowball.ui.theme.MainGrey
 import com.example.snowball.ui.theme.SecondGrey
@@ -55,5 +57,6 @@ fun enableSubmitButton(
     strategyList.forEach {
         ratioSum += it.productRate
     }
-    return ratioSum == 100
+
+    return ((ratioSum == 100) && AddScreenViewModel.Strategies.getPortfolioTitle() != "")
 }

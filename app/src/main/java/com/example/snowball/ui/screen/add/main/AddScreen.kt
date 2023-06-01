@@ -11,7 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.snowball.ui.component.add.StrategyList
+import com.example.snowball.ui.component.add.main.StrategyList
 import com.example.snowball.ui.component.add.main.TitleTextField
 import com.example.snowball.ui.component.add.main.AssistText
 import com.example.snowball.ui.component.add.main.InsertButton
@@ -55,6 +55,10 @@ fun AddScreenContent(
     LaunchedEffect(Unit){
         addScreenViewModel.setDefaultStrategyList()
     }
+    LaunchedEffect(addScreenViewModel.strategyList.size) {
+
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -81,6 +85,4 @@ fun AddScreenContent(
             )
         }
     }
-
-
 }

@@ -20,6 +20,7 @@ class SelectScreenViewModel: ViewModel() {
         }
     }
 
+    // TODO: 나중에 밖으로 뺴기
     object StrategyItemNames {
         val newStrategy = listOf(
             "자산 직접 선택",
